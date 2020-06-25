@@ -1,0 +1,17 @@
+# idea folder
+.idea/
+# Environment
+
+
+**.iml
+**.c
+**.json
+
+__pycached__/
+
+# Django #
+*.log
+*.pot
+*.pyc
+*.sqlite3
+#
