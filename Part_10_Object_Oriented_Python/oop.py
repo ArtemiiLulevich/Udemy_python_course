@@ -12,6 +12,6 @@ class Kettle:
 kenwood = Kettle('Kenwood', 8.99)
 print(kenwood.make)
 
-kenwood.switch_on()
-
+# kenwood.switch_on()
+Kettle.switch_on(kenwood)
 print('{0.make} - {0.price} - {0.on}'.format(kenwood))
