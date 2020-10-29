@@ -123,7 +123,7 @@ def load_data():
 
     artist_list = []
 
-    with open("albums.txt", "r") as album:
+    with open("../albums.txt", "r") as album:
         for line in album:
             # data row should consist of (artist, album, year, song)
             artist_field, album_field, year_field, song_field = tuple(line.strip('\n').split('\t'))
@@ -141,7 +141,7 @@ def load_data():
 
 
 def create_check_file(artist_list):
-    with open("check_file.txt", "w") as check_file:
+    with open("../check_file.txt", "w") as check_file:
         for new_artist in artist_list:
             for new_album in new_artist.albums:
                 for new_song in new_album.tracks:
