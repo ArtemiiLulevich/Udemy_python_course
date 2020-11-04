@@ -1,34 +1,12 @@
 from player import Player
+from enemy import Enemy, Troll
+
 
 artem = Player("Artem")
-
-print(artem.name)
-print(artem.lives)
-
-# print(artem)
-# artem.lives -= 1
-#
-# print(artem)
-# artem.lives -= 1
-#
-# print(artem)
-# artem.lives -= 1
-#
-# print(artem)
-# artem.lives -= 1
-
-
-artem.level += 1
 print(artem)
 
-artem.level += 3
-print(artem)
+ugly_troll = Troll("Ug", 18, 1)
+print(ugly_troll)
 
-artem.level -= 5
-print(artem)
-
-artem.level = 5
-print(artem)
-
-artem.score = 500
-print(artem)
+troll_bro = Troll("Urg", 23)
+print(troll_bro)
