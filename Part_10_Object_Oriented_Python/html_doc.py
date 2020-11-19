@@ -15,14 +15,16 @@ class Tag:
 class DocType(Tag):
 
     def __init__(self):
-        super().__init__('!DOCTYPE HTM PUBLIC', '')
+        super().__init__('!DOCTYPE HTML PUBLIC', '')
         self.end_tag = ''  # DOCTYPE doesn't have an end tag
 
 
 class Head(Tag):
 
-    def __init__(self):
-        super(Head, self).__init__('head', '')
+    def __init__(self, title_text=None):
+        super().__init__('head', '')
+        if title_text:
+            self.contents = '<title>{}</title>'.format(title_text)
 
 
 class Body(Tag):
@@ -42,11 +44,11 @@ class Body(Tag):
         super().display(file=file)
 
 
-class HtlmDoc:
+class HtmlDoc:
 
-    def __init__(self):
+    def __init__(self, title_text=None):
         self._doc_type = DocType()
-        self._head = Head()
+        self._head = Head(title_text)
         self._body = Body()
 
     def add_tag(self, name, contents):
@@ -61,9 +63,9 @@ class HtlmDoc:
 
 
 if __name__ == '__main__':
-    my_page = HtlmDoc()
+    my_page = HtmlDoc()
     my_page.add_tag('h1', 'Main heading')
     my_page.add_tag('h2', 'Sub heading')
     my_page.add_tag('p', 'This is a paragraph')
-
-    my_page.display()
+    with open('test.html', 'w') as test_doc:
+        my_page.display(file=test_doc)
