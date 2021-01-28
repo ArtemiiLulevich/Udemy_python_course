@@ -3,12 +3,12 @@ import sqlite3
 db = sqlite3.connect("contracts.sqlite")
 
 new_email = "anotherupdate@update.com"
-phone = 123456
+phone = input("Enter a phone number: ")
 
-update_sql = "UPDATE contracts SET email = 'update@update.com' " \
-             "WHERE contracts.phone = 123456"
+update_sql = "UPDATE contracts SET email = ? " \
+             "WHERE contracts.phone = ?"
 update_cursor = db.cursor()
-update_cursor.execute(update_sql)
+update_cursor.execute(update_sql, (new_email, phone))
 print("{} rows updated".format(update_cursor.rowcount))
 
 update_cursor.connection.commit()
