@@ -48,6 +48,25 @@ class Penguin:
         return
 
 
+class Flock:
+
+    def __init__(self):
+        self.flock = []
+
+    def add_duck(self, duck: Duck) -> None:
+        self.flock.append(duck)
+
+    def migration(self):
+        problem = None
+        for duck in self.flock:
+            try:
+                duck.fly()
+            except AttributeError as e:
+                print("One duck is down")
+                problem = e
+        if problem:
+            raise problem
+
 # def test_duck(duck):
 #     duck.walk()
 #     duck.swim()
