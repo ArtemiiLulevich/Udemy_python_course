@@ -2,13 +2,16 @@ import sqlite3
 import pytz
 import datetime
 
-db = sqlite3.connect("accounts.sqlite")
+db = sqlite3.connect("accounts.sqlite", detect_types=sqlite3.PARSE_DECLTYPES)
 db.execute("CREATE TABLE IF NOT EXISTS "
            "accounts (name TEXT PRIMARY KEY NOT NULL, balance INTEGER NOT NULL)")
 db.execute("CREATE TABLE IF NOT EXISTS transactions (time TIMESTAMP NOT NULL,"
            "account TEXT NOT NULL,"
            "amount INTEGER NOT NULL,"
            "PRIMARY KEY (time, account))")
+db.execute("CREATE VIEW IF NOT EXISTS local_transactions AS "
+           "SELECT strftime('%Y-%m-%d %H:%M:%f', transactions.time, 'localtime'),"
+           "transactions.account, transactions.amount FROM transactions ORDER BY transactions.time")
 
 
 class Account:
@@ -16,6 +19,8 @@ class Account:
     @staticmethod
     def _current_time():
         return pytz.utc.localize(datetime.datetime.utcnow())
+        # local_time = pytz.utc.localize(datetime.datetime.utcnow())
+        # return local_time.astimezone()
 
     def __init__(self, name: str, opening_balance: int = 0):
         cursor = db.execute("SELECT name, balance FROM accounts WHERE (name = ?)", (name, ))
