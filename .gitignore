@@ -17,5 +17,8 @@ __pycached__/
 *.pyc
 *.sqlite3
 
+# DB
+*.db
+
 # Sqlite
 *.sqlite
