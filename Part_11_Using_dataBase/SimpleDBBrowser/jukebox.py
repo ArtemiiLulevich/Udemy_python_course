@@ -21,6 +21,20 @@ class ScrollBox(tkinter.Listbox):
         self['yscrollcommand'] = self.scrollbar.set
 
 
+def get_albums(event):
+    lb = event.widget
+    index = lb.curselection()[0]
+    artist_name = lb.get(index),
+
+    artist_id = conn.execute("SELECT artists._id FROM artists WHERE artists.name = ?", artist_name).fetchone()
+
+    alist = []
+    for row in conn.execute("SELECT albums.name FROM albums WHERE albums.artist = ? ORDER BY albums.name", artist_id):
+        alist.append(row[0])
+
+    albumLV.set(tuple(alist))
+
+
 mainWindow = tkinter.Tk()
 mainWindow.title("Music DB Browser")
 mainWindow.geometry('1024x768')
@@ -45,6 +59,10 @@ artistList = ScrollBox(mainWindow)
 artistList.grid(row=1, column=0, sticky='nsew', rowspan=2, padx=(30, 0))
 artistList.config(border=2, relief='sunken')
 
+for artist in conn.execute("SELECT artists.name FROM artists ORDER BY artists.name"):
+    artistList.insert(tkinter.END, artist[0])
+
+artistList.bind('<<ListboxSelect>>', get_albums)
 
 # ====== Albums Listbox ======
 albumLV = tkinter.Variable(mainWindow)
@@ -61,7 +79,7 @@ songList.grid(row=1, column=2, sticky='nsew', padx=(30, 0))
 songList.config(border=2, relief='sunken')
 
 # ====== Main Loop ======
-albumLV .set(tuple(range(1, 100)))
+# albumLV .set(tuple(range(1, 100)))
 mainWindow.mainloop()
 print("closing database connection")
 conn.close()
