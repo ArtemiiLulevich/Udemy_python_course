@@ -8,6 +8,7 @@
 **.json
 *.txt
 *.html
+*.emp3
 
 __pycached__/
 
