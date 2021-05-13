@@ -34,7 +34,6 @@ class Duck:
 
 
 class Penguin:
-
     def __init__(self):
         self.fly = self.aviate
 
@@ -72,7 +71,6 @@ class Flock:
         for duck in self.flock:
             try:
                 duck.fly()
-                raise AttributeError("Tests exception handler in migrate")  # TODO delete this
             except AttributeError as e:
                 print("One duck is down")
                 problem = e
@@ -87,8 +85,9 @@ class Flock:
 
 if __name__ == "__main__":
     donald = Duck()
-
-    donald.fly()
-
-    # test_duck(donald)
-    # test_duck(percy)
+    percy = Penguin()
+    # donald.fly()
+    flock = Flock()
+    flock.add_duck(donald)
+    flock.add_duck(percy)
+    flock.migration()
